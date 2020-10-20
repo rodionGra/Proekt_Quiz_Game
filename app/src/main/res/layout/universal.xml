@@ -133,7 +133,8 @@
                 android:id="@+id/line3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/img_left"
@@ -162,11 +163,10 @@
         <LinearLayout
             android:id="@+id/line4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             >
-
             <TextView
                     android:id="@+id/text_left"
                     android:layout_width="match_parent"

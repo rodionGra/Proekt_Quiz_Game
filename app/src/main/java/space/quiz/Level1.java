@@ -23,6 +23,10 @@ public class Level1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.universal);
 
+        //установка текста уровня
+        TextView textViewOfLevel = findViewById(R.id.text_levels);
+        textViewOfLevel.setText(R.string.level1);
+
         //код который скругляет углы картинок
         final ImageView img_left = findViewById(R.id.img_left);
         img_left.setClipToOutline(true);
@@ -41,9 +45,25 @@ public class Level1 extends AppCompatActivity {
         dialog.setCancelable(false);    //окно нельзя закрыть кнопкой "назад"
         dialog.show();
 
+
+        //кнопка назад из уровня в меню
+        Button btnBack = findViewById(R.id.button_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(Level1.this, GameLevels.class);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+
+                }
+            }
+        });
+
     }
 
-     public void closeDialog(View view){
+    public void closeDialog(View view){
         try{
             Intent intent = new Intent(Level1.this, GameLevels.class);
             startActivity(intent);
@@ -58,6 +78,16 @@ public class Level1 extends AppCompatActivity {
         dialog.dismiss(); //закрыть диалоговое окно
     }
 
+    @Override
+    public void onBackPressed(){
+        try{
+            Intent intent = new Intent(Level1.this, GameLevels.class);
+            startActivity(intent);
+            finish();
+        }catch (Exception e){
+
+        }
+    }
 }
 
 

@@ -24,6 +24,7 @@ import java.util.Random;
 public class Level2 extends AppCompatActivity {
 
     Dialog dialog;
+    Dialog dialogEnd;
 
     public int numLeft;
     public int numRight;
@@ -44,7 +45,7 @@ public class Level2 extends AppCompatActivity {
 
         //установка текста уровня
         TextView textViewOfLevel = findViewById(R.id.text_levels);
-        textViewOfLevel.setText(R.string.level1);
+        textViewOfLevel.setText(R.string.level2);
 
         //код который скругляет углы картинок
         final ImageView img_left = findViewById(R.id.img_left);
@@ -62,6 +63,39 @@ public class Level2 extends AppCompatActivity {
         dialog.setContentView(R.layout.preview_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //прозрачный фон диалогового окна
         dialog.setCancelable(false);    //окно нельзя закрыть кнопкой "назад"
+
+        //установка картинки в диалоговое окно
+        ImageView preview_img = dialog.findViewById(R.id.preview_img);
+        preview_img.setImageResource(R.drawable.preview_img_2);
+
+        //установка описания в диалоговое окно
+        TextView textDescription = dialog.findViewById(R.id.text_description);
+        textDescription.setText(R.string.level_two);
+
+
+        Button btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(Level2.this, GameLevels.class);
+                    startActivity(intent);
+                    finish();
+                }catch (Exception e){
+
+                }
+                dialog.dismiss();   //закрыть диалоговое окно
+            }
+        });
+
+        Button btnContinue = dialog.findViewById(R.id.btn_continue);
+        btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
 
 
@@ -89,15 +123,15 @@ public class Level2 extends AppCompatActivity {
 
         //заполнения рандомно картинки и подписей
         numLeft = random.nextInt(10);
-        img_left.setImageResource(array.images1[numLeft]);
-        text_left.setText(array.texts1[numLeft]);
+        img_left.setImageResource(array.images2[numLeft]);
+        text_left.setText(array.texts2[numLeft]);
 
         numRight = random.nextInt(10);
         while (numRight == numLeft){    //чтобы числа были разные
             numRight = random.nextInt(10);
         }
-        img_right.setImageResource(array.images1[numRight]);
-        text_right.setText(array.texts1[numRight]);
+        img_right.setImageResource(array.images2[numRight]);
+        text_right.setText(array.texts2[numRight]);
 
         //подключаем анимацию
         final Animation a = AnimationUtils.loadAnimation(Level2.this, R.anim.alpha);
@@ -152,20 +186,21 @@ public class Level2 extends AppCompatActivity {
 
                     if (count == 10) {
                         //выход из уровня
+                        dialogEnd.show();
                     }else   {
                         //заполнения рандомно картинки и подписей
                         numLeft = random.nextInt(10);
-                        img_left.setImageResource(array.images1[numLeft]);
+                        img_left.setImageResource(array.images2[numLeft]);
                         img_left.startAnimation(a);
-                        text_left.setText(array.texts1[numLeft]);
+                        text_left.setText(array.texts2[numLeft]);
 
                         numRight = random.nextInt(10);
                         while (numRight == numLeft) {    //чтобы числа были разные
                             numRight = random.nextInt(10);
                         }
-                        img_right.setImageResource(array.images1[numRight]);
+                        img_right.setImageResource(array.images2[numRight]);
                         img_right.startAnimation(a);
-                        text_right.setText(array.texts1[numRight]);
+                        text_right.setText(array.texts2[numRight]);
 
                         img_right.setEnabled(true); // включаем обратно правую картинку
                     }
@@ -225,20 +260,21 @@ public class Level2 extends AppCompatActivity {
 
                     if (count == 10) {
                         //выход из уровня
+                        dialogEnd.show();
                     }else   {
                         //заполнения рандомно картинки и подписей
                         numLeft = random.nextInt(10);
-                        img_left.setImageResource(array.images1[numLeft]);
+                        img_left.setImageResource(array.images2[numLeft]);
                         img_left.startAnimation(a);
-                        text_left.setText(array.texts1[numLeft]);
+                        text_left.setText(array.texts2[numLeft]);
 
                         numRight = random.nextInt(10);
                         while (numRight == numLeft) {    //чтобы числа были разные
                             numRight = random.nextInt(10);
                         }
-                        img_right.setImageResource(array.images1[numRight]);
+                        img_right.setImageResource(array.images2[numRight]);
                         img_right.startAnimation(a);
-                        text_right.setText(array.texts1[numRight]);
+                        text_right.setText(array.texts2[numRight]);
 
                         img_left.setEnabled(true); // включаем обратно правую картинку
                     }
@@ -247,21 +283,52 @@ public class Level2 extends AppCompatActivity {
                 return true;
             }
         });
-    }
 
-    public void closeDialog(View view){
-        try{
-            Intent intent = new Intent(Level2.this, GameLevels.class);
-            startActivity(intent);
-            finish();
-        }catch (Exception e){
 
-        }
-        dialog.dismiss();   //закрыть диалоговое окно
-    }
+        //вызов диалогового окна в конце игры
+        dialogEnd = new Dialog(this);
+        dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);   //убрать заголовок
+        dialogEnd.setContentView(R.layout.end_dialog);
+        dialogEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //прозрачный фон диалогового окна
+        dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT);   //розтянуть на ширину экрана
+        dialogEnd.setCancelable(false);    //окно нельзя закрыть кнопкой "назад"
 
-    public void continueGame(View view){
-        dialog.dismiss(); //закрыть диалоговое окно
+        //интересный факт
+        TextView texDescriptionEnd = dialogEnd.findViewById(R.id.text_description_end);
+        texDescriptionEnd.setText(R.string.level_two_end);
+
+        Button btnCloseDialogEnd = dialogEnd.findViewById(R.id.btn_close);
+        btnCloseDialogEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(Level2.this, GameLevels.class);
+                    startActivity(intent);
+                    finish();
+                }catch (Exception e){
+
+                }
+                dialogEnd.dismiss();   //закрыть диалоговое окно
+            }
+        });
+
+        Button btnContinueDialogEnd = dialogEnd.findViewById(R.id.btn_continue);
+        btnContinueDialogEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(Level2.this, Level3.class);
+                    startActivity(intent);
+                    finish();
+                }catch (Exception e){
+
+                }
+                dialogEnd.dismiss();
+            }
+        });
+        //конец кода диалового окна в конце кровня
+
     }
 
     @Override
@@ -274,7 +341,6 @@ public class Level2 extends AppCompatActivity {
 
         }
     }
-
 
 
     //перевірка

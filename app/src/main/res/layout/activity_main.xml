@@ -31,12 +31,11 @@
     <LinearLayout
         android:id="@+id/start_layout"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:padding="10dp"
-
         android:layout_marginBottom="20dp">
 
         <Button

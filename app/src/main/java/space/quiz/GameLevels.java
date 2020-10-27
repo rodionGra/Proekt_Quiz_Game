@@ -34,6 +34,51 @@ public class GameLevels extends AppCompatActivity {
                 }
             }
         });
+
+        //Кнопка перехода на 2 уровень
+        TextView textView2 =(TextView) findViewById(R.id.textView2);
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent( GameLevels.this , Level2.class);
+                    startActivity(intent);
+                    finish();
+                }catch (Exception e){
+
+                }
+            }
+        });
+
+        //Кнопка перехода на 3 уровень
+        TextView textView3 =(TextView) findViewById(R.id.textView3);
+        textView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent( GameLevels.this , Level3.class);
+                    startActivity(intent);
+                    finish();
+                }catch (Exception e){
+
+                }
+            }
+        });
+
+        //Кнопка перехода на 4 уровень
+        TextView textView4 =(TextView) findViewById(R.id.textView4);
+        textView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent( GameLevels.this , Level4.class);
+                    startActivity(intent);
+                    finish();
+                }catch (Exception e){
+
+                }
+            }
+        });
     }
 
     //отдельная кнопка назад
